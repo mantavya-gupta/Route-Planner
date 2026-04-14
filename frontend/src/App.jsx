@@ -35,7 +35,7 @@ export default function App() {
   const fetchRoute = async () => {
     if (!source || !destination || source === destination) return;
     try {
-      const res = await fetch(`http://localhost:5328/api/route?source=${source}&destination=${destination}&optimize=${optimize}`);
+      const res = await fetch(`/api/route?source=${source}&destination=${destination}&optimize=${optimize}`);
       const data = await res.json();
       if (data.path) setRouteData({ ...data, optimize });
     } catch (e) { console.error(e); }
