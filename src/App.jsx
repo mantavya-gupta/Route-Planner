@@ -2,7 +2,6 @@ import { useState } from 'react';
 import './App.css';
 
 const CITIES = {
-  // Original
   'Bhuj': { x: 80, y: 150 }, 'Gandhidham': { x: 200, y: 150 },
   'Jamnagar': { x: 100, y: 350 }, 'Rajkot': { x: 280, y: 400 },
   'Dwarka': { x: 40, y: 350 }, 'Porbandar': { x: 80, y: 500 },
@@ -15,25 +14,19 @@ const CITIES = {
   'Surat': { x: 750, y: 580 }, 'Valsad': { x: 780, y: 650 },
   'Vapi': { x: 820, y: 720 }, 'Daman': { x: 730, y: 720 },
   'Bhavnagar': { x: 400, y: 650 }, 'Diu': { x: 250, y: 750 },
-  // Saurashtra & Coastal
   'Junagadh': { x: 250, y: 500 }, 'Somnath': { x: 240, y: 600 },
   'Morbi': { x: 300, y: 320 }, 'Surendranagar': { x: 400, y: 300 },
   'Amreli': { x: 330, y: 520 },
-  // South Gujarat
   'Navsari': { x: 760, y: 620 }, 'Ankleshwar': { x: 720, y: 510 },
   'Saputara': { x: 850, y: 650 },
-  // Kutch Extensions
   'Mandvi': { x: 70, y: 250 }, 'Mundra': { x: 140, y: 240 },
   'Dhordo': { x: 90, y: 50 },
-  // Central/East & Tourism
   'Kevadia': { x: 780, y: 420 }, 'Godhra': { x: 680, y: 280 },
   'Chhota Udaipur': { x: 800, y: 350 },
-  // North Gujarat
   'Ambaji': { x: 460, y: 10 }, 'Modhera': { x: 450, y: 120 }
 };
 
 const ROAD_DETAILS = {
-  // Original Edges
   'Bhuj-Ahmedabad': { dist: 330, speed: 70, name: 'NH27' },
   'Bhuj-Rajkot': { dist: 230, speed: 65, name: 'SH42' },
   'Jamnagar-Rajkot': { dist: 90, speed: 60, name: 'NH151A' },
@@ -64,7 +57,6 @@ const ROAD_DETAILS = {
   'Bhuj-Gandhidham': { dist: 60, speed: 60, name: 'NH41' },
   'Gandhidham-Ahmedabad': { dist: 300, speed: 70, name: 'NH27' },
   'Ahmedabad-Dahod': { dist: 210, speed: 60, name: 'NH47' },
-  // New Edges
   'Rajkot-Junagadh': { dist: 100, speed: 60, name: 'NH151' },
   'Junagadh-Somnath': { dist: 90, speed: 60, name: 'NH151' },
   'Rajkot-Morbi': { dist: 65, speed: 65, name: 'NH27' },
@@ -86,7 +78,8 @@ const ROAD_DETAILS = {
   'Godhra-Dahod': { dist: 70, speed: 60, name: 'NH47' },
   'Vadodara-Chhota Udaipur': { dist: 105, speed: 60, name: 'SH' },
   'Palanpur-Ambaji': { dist: 50, speed: 55, name: 'SH' },
-  'Mehsana-Modhera': { dist: 25, speed: 55, name: 'SH' }
+  'Mehsana-Modhera': { dist: 25, speed: 55, name: 'SH' },
+  'Ahmedabad-Surat': { dist: 280, speed: 120, name: 'Super Express' }
 };
 
 const ROADS = Object.keys(ROAD_DETAILS).map(pair => pair.split('-'));
@@ -175,7 +168,7 @@ export default function App() {
       </div>
 
       <div className="map-area">
-        <svg viewBox="0 0 1000 850" className="svg-map">
+        <svg viewBox="-50 -100 1100 1050" preserveAspectRatio="xMidYMid meet" className="svg-map">
           <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
             <path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,255,255,0.02)" strokeWidth="1"/>
           </pattern>
