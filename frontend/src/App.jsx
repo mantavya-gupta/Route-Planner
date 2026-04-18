@@ -2,7 +2,6 @@ import { useState } from 'react';
 import './App.css';
 
 const CITIES = {
-  // Original
   'Bhuj': { x: 80, y: 150 }, 'Gandhidham': { x: 200, y: 150 },
   'Jamnagar': { x: 100, y: 350 }, 'Rajkot': { x: 280, y: 400 },
   'Dwarka': { x: 40, y: 350 }, 'Porbandar': { x: 80, y: 500 },
@@ -15,20 +14,15 @@ const CITIES = {
   'Surat': { x: 750, y: 580 }, 'Valsad': { x: 780, y: 650 },
   'Vapi': { x: 820, y: 720 }, 'Daman': { x: 730, y: 720 },
   'Bhavnagar': { x: 400, y: 650 }, 'Diu': { x: 250, y: 750 },
-  // Saurashtra & Coastal
   'Junagadh': { x: 250, y: 500 }, 'Somnath': { x: 240, y: 600 },
   'Morbi': { x: 300, y: 320 }, 'Surendranagar': { x: 400, y: 300 },
   'Amreli': { x: 330, y: 520 },
-  // South Gujarat
   'Navsari': { x: 760, y: 620 }, 'Ankleshwar': { x: 720, y: 510 },
   'Saputara': { x: 850, y: 650 },
-  // Kutch Extensions
   'Mandvi': { x: 70, y: 250 }, 'Mundra': { x: 140, y: 240 },
   'Dhordo': { x: 90, y: 50 },
-  // Central/East & Tourism
   'Kevadia': { x: 780, y: 420 }, 'Godhra': { x: 680, y: 280 },
   'Chhota Udaipur': { x: 800, y: 350 },
-  // North Gujarat
   'Ambaji': { x: 460, y: 10 }, 'Modhera': { x: 450, y: 120 }
 };
 
@@ -174,8 +168,7 @@ export default function App() {
       </div>
 
       <div className="map-area">
-        {/* THIS IS THE UPDATED VIEWBOX */}
-        <svg viewBox="-50 -50 1100 950" className="svg-map">
+        <svg viewBox="-50 -100 1100 1050" preserveAspectRatio="xMidYMid meet" className="svg-map">
           <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
             <path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,255,255,0.02)" strokeWidth="1"/>
           </pattern>
