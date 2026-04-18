@@ -2,31 +2,56 @@ import { useState } from 'react';
 import './App.css';
 
 const CITIES = {
+  'Bhuj': { x: 80, y: 150 }, 'Gandhidham': { x: 200, y: 150 },
   'Jamnagar': { x: 100, y: 350 }, 'Rajkot': { x: 280, y: 400 },
+  'Dwarka': { x: 40, y: 350 }, 'Porbandar': { x: 80, y: 500 },
   'Ahmedabad': { x: 500, y: 200 }, 'Gandhinagar': { x: 550, y: 130 },
-  'Vadodara': { x: 680, y: 380 }, 'Surat': { x: 750, y: 580 }, 
-  'Bhavnagar': { x: 400, y: 650 }, 'Vapi': { x: 820, y: 720 },
-  'Daman': { x: 730, y: 720 }, 'Bhuj': { x: 80, y: 150 }
+  'Mehsana': { x: 480, y: 100 }, 'Palanpur': { x: 450, y: 40 },
+  'Deesa': { x: 400, y: 30 }, 'Patan': { x: 420, y: 80 },
+  'Himmatnagar': { x: 580, y: 80 }, 'Dahod': { x: 850, y: 250 },
+  'Nadiad': { x: 580, y: 280 }, 'Anand': { x: 630, y: 330 },
+  'Vadodara': { x: 680, y: 380 }, 'Bharuch': { x: 710, y: 480 },
+  'Surat': { x: 750, y: 580 }, 'Valsad': { x: 780, y: 650 },
+  'Vapi': { x: 820, y: 720 }, 'Daman': { x: 730, y: 720 },
+  'Bhavnagar': { x: 400, y: 650 }, 'Diu': { x: 250, y: 750 }
 };
 
 const ROAD_DETAILS = {
-  'Rajkot-Ahmedabad': { dist: 215, speed: 70, name: 'NH47' },
-  'Rajkot-Jamnagar': { dist: 90, speed: 60, name: 'NH151A' },
-  'Rajkot-Bhavnagar': { dist: 175, speed: 65, name: 'State Hwy' },
-  'Ahmedabad-Vadodara': { dist: 110, speed: 90, name: 'Expressway' },
-  'Vadodara-Surat': { dist: 150, speed: 80, name: 'NH48' },
-  'Ahmedabad-Bhavnagar': { dist: 170, speed: 60, name: 'NH51' },
-  'Ahmedabad-Gandhinagar': { dist: 30, speed: 50, name: 'G-Road' },
-  'Surat-Vapi': { dist: 110, speed: 75, name: 'NH48' },
-  'Vapi-Daman': { dist: 12, speed: 40, name: 'Coastal Rd' },
+  'Bhuj-Ahmedabad': { dist: 330, speed: 70, name: 'NH27' },
   'Bhuj-Rajkot': { dist: 230, speed: 65, name: 'SH42' },
-  'Bhuj-Ahmedabad': { dist: 330, speed: 70, name: 'NH27' }
+  'Jamnagar-Rajkot': { dist: 90, speed: 60, name: 'NH151A' },
+  'Rajkot-Ahmedabad': { dist: 215, speed: 70, name: 'NH47' },
+  'Rajkot-Bhavnagar': { dist: 175, speed: 65, name: 'SH' },
+  'Ahmedabad-Gandhinagar': { dist: 30, speed: 50, name: 'G-Road' },
+  'Ahmedabad-Vadodara': { dist: 110, speed: 90, name: 'Expressway' },
+  'Ahmedabad-Bhavnagar': { dist: 170, speed: 60, name: 'NH51' },
+  'Vadodara-Surat': { dist: 150, speed: 80, name: 'NH48' },
+  'Surat-Vapi': { dist: 110, speed: 75, name: 'NH48' },
+  'Vapi-Daman': { dist: 12, speed: 40, name: 'Coastal' },
+  'Jamnagar-Dwarka': { dist: 130, speed: 55, name: 'NH947' },
+  'Rajkot-Porbandar': { dist: 180, speed: 60, name: 'NH27' },
+  'Porbandar-Dwarka': { dist: 100, speed: 50, name: 'Coastal SH' },
+  'Bhavnagar-Diu': { dist: 200, speed: 50, name: 'Coastal Hwy' },
+  'Ahmedabad-Mehsana': { dist: 75, speed: 60, name: 'SH41' },
+  'Mehsana-Palanpur': { dist: 75, speed: 65, name: 'SH41' },
+  'Palanpur-Deesa': { dist: 30, speed: 55, name: 'NH27' },
+  'Mehsana-Patan': { dist: 50, speed: 50, name: 'SH7' },
+  'Ahmedabad-Himmatnagar': { dist: 80, speed: 65, name: 'NH48' },
+  'Ahmedabad-Nadiad': { dist: 55, speed: 75, name: 'NE1' },
+  'Nadiad-Anand': { dist: 20, speed: 70, name: 'NE1' },
+  'Anand-Vadodara': { dist: 45, speed: 75, name: 'NE1' },
+  'Vadodara-Bharuch': { dist: 80, speed: 80, name: 'NH48' },
+  'Bharuch-Surat': { dist: 75, speed: 80, name: 'NH48' },
+  'Surat-Valsad': { dist: 95, speed: 75, name: 'NH48' },
+  'Valsad-Vapi': { dist: 30, speed: 60, name: 'NH48' },
+  'Bhuj-Gandhidham': { dist: 60, speed: 60, name: 'NH41' },
+  'Gandhidham-Ahmedabad': { dist: 300, speed: 70, name: 'NH27' },
+  'Ahmedabad-Dahod': { dist: 210, speed: 60, name: 'NH47' }
 };
 
 const ROADS = Object.keys(ROAD_DETAILS).map(pair => pair.split('-'));
 
 export default function App() {
-  // SET TO EMPTY STRINGS FOR NO PRE-SELECTION
   const [source, setSource] = useState('');
   const [destination, setDestination] = useState('');
   const [optimize, setOptimize] = useState('time'); 
@@ -47,7 +72,6 @@ export default function App() {
     <div className="app-container">
       <div className="sidebar">
         <div className="header-brand">
-          {/* REMOVED "SMART" FROM HEADING */}
           <h1>ROUTE PLANNER</h1>
         </div>
 

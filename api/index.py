@@ -1,8 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import heapq
+import json
+import os
 
-# --- DIJKSTRA LOGIC (Moved inside to fix Vercel import error) ---
 class RouteGraph:
     def __init__(self):
         self.graph = {}
@@ -15,7 +16,6 @@ class RouteGraph:
         self.graph[v].append((u, dist, time, name))
 
     def find_optimal_path(self, start, end, optimize_by='time'):
-        # cost, current_node, path, total_dist, total_time
         pq = [(0, start, [start], 0, 0)]
         visited = set()
         while pq:
@@ -37,19 +37,16 @@ class RouteGraph:
 app = Flask(__name__)
 CORS(app)
 
-# Initialize and add data
+# Initialize graph and load data from JSON
 g = RouteGraph()
-g.add_edge('Bhuj', 'Ahmedabad', 330, 70, "NH27")
-g.add_edge('Bhuj', 'Rajkot', 230, 65, "SH42")
-g.add_edge('Jamnagar', 'Rajkot', 90, 60, "NH151A")
-g.add_edge('Rajkot', 'Ahmedabad', 215, 70, "NH47")
-g.add_edge('Rajkot', 'Bhavnagar', 175, 65, "SH")
-g.add_edge('Ahmedabad', 'Gandhinagar', 30, 50, "G-Road")
-g.add_edge('Ahmedabad', 'Vadodara', 110, 90, "Expressway")
-g.add_edge('Ahmedabad', 'Bhavnagar', 170, 60, "NH51")
-g.add_edge('Vadodara', 'Surat', 150, 80, "NH48")
-g.add_edge('Surat', 'Vapi', 110, 75, "NH48")
-g.add_edge('Vapi', 'Daman', 12, 40, "Coastal")
+try:
+    data_path = os.path.join(os.path.dirname(__file__), 'cities.json')
+    with open(data_path, 'r') as f:
+        city_data = json.load(f)
+        for entry in city_data:
+            g.add_edge(*entry)
+except Exception as e:
+    print(f"Error loading city data: {e}")
 
 @app.route('/api/route', methods=['GET'])
 def get_route():
@@ -64,5 +61,3 @@ def get_route():
     if result:
         return jsonify(result)
     return jsonify({"error": "No route found"}), 404
-
-# Vercel needs this "app" variable
