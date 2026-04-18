@@ -50,5 +50,6 @@
     ["Godhra", "Dahod", 70, 60, "NH47"],
     ["Vadodara", "Chhota Udaipur", 105, 60, "SH"],
     ["Palanpur", "Ambaji", 50, 55, "SH"],
-    ["Mehsana", "Modhera", 25, 55, "SH"]
+    ["Mehsana", "Modhera", 25, 55, "SH"],
+    ["Ahmedabad", "Surat", 280, 120, "Super Express"]
 ]
